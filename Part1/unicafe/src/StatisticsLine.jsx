@@ -1,4 +1,9 @@
 import Text from "./Text";
 
-const StatisticsLine = ({ text, value }) => <Text text={`${text} ${value}`} />;
+const StatisticsLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+);
 export default StatisticsLine;
