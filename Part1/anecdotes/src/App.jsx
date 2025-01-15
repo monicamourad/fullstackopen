@@ -16,8 +16,6 @@ const App = () => {
 
   const getRandomAnecdote = (max, selectedAnecdote) => {
     const rand = Math.floor(Math.random() * max);
-    console.log("selectedAnecdote", selectedAnecdote);
-    console.log("rand", rand);
 
     if (rand !== selectedAnecdote) {
       return rand;
