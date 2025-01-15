@@ -15,13 +15,11 @@ const App = () => {
   const [selected, setSelected] = useState(0);
 
   const getRandomAnecdote = (max, selectedAnecdote) => {
-    const rand = Math.floor(Math.random() * max);
-
-    if (rand !== selectedAnecdote) {
-      return rand;
-    } else {
-      return getRandomAnecdote(max, selectedAnecdote);
-    }
+    let rand;
+    do {
+      rand = Math.floor(Math.random() * max);
+    } while (rand === selectedAnecdote);
+    return rand;
   };
 
   return (
