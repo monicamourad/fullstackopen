@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
+import axios from 'axios'
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "040-1234567", key: "Arto Hellas" },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    const promise = 
+    axios
+    .get("http://localhost:3001/persons")
+    .then((response) => {
+      const persons = response.data.map(personData => ({ 
+        name : personData.name,
+        phone : personData.number,
+        key: personData.id
+      }));
+      setPersons(persons);
+    })
+  },[]);
 
   return (
     <div>
