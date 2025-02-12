@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PersonsService from "../services/persons";
+import personsService from "../services/persons";
 
 const PersonForm = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
@@ -13,7 +13,7 @@ const PersonForm = ({ persons, setPersons }) => {
       window.alert(`${newName} is already added to phonebook`);
     } else {
       const newPerson = { name: newName, number: newNumber };
-      PersonsService.create(newPerson).then((data) => {
+      personsService.create(newPerson).then((data) => {
         const formattedPerson = {
           name: data.name,
           phone: data.number,

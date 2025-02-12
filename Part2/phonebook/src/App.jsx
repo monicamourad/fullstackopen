@@ -3,14 +3,14 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 
-import PersonsService from "./services/persons";
+import personsService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    const promise = PersonsService.getAll().then((personsBE) => {
+    const promise = personsService.getAll().then((personsBE) => {
       const persons = personsBE.map((personBE) => ({
         name: personBE.name,
         phone: personBE.number,
@@ -27,7 +27,7 @@ const App = () => {
       <h2>Add a New</h2>
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Persons persons={persons} searchValue={searchValue} />
+      <Persons persons={persons} searchValue={searchValue} setPersons={setPersons} />
     </div>
   );
 };
