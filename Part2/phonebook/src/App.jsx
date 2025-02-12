@@ -1,26 +1,24 @@
-import { useState , useEffect} from "react";
-import axios from 'axios'
+import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
+
+import PersonsService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    const promise = 
-    axios
-    .get("http://localhost:3001/persons")
-    .then((response) => {
-      const persons = response.data.map(personData => ({ 
-        name : personData.name,
-        phone : personData.number,
-        id: personData.id
+    const promise = PersonsService.getAll().then((personsBE) => {
+      const persons = personsBE.map((personBE) => ({
+        name: personBE.name,
+        phone: personBE.number,
+        id: personBE.id,
       }));
       setPersons(persons);
-    })
-  },[]);
+    });
+  }, []);
 
   return (
     <div>
