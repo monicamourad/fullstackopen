@@ -7,10 +7,28 @@ const PersonForm = ({ persons, setPersons }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const doesNameExists =
-      persons.find((person) => person.name === newName) !== undefined;
-    if (doesNameExists) {
-      window.alert(`${newName} is already added to phonebook`);
+    const existingPerson = persons.find((person) => person.name === newName);
+    if (existingPerson) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        const newPerson = {
+          name: newName,
+          number: newNumber,
+          id: existingPerson.id,
+        };
+        personsService.update(newPerson).then((data) => {
+          const formattedPerson = {
+            name: data.name,
+            phone: data.number,
+            id: data.id
+          };
+          const newPersons = persons.filter((person) => person.id !== data.id);
+          setPersons(newPersons.concat(formattedPerson));
+        });
+      }
     } else {
       const newPerson = { name: newName, number: newNumber };
       personsService.create(newPerson).then((data) => {
