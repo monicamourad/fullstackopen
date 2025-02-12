@@ -3,7 +3,7 @@ const Persons = ({ persons, searchValue }) => {
     (person) =>
       (!searchValue ||
         person.name.toLowerCase().includes(searchValue.toLowerCase())) && (
-        <p key={person.name}>
+        <p key={person.id}>
           {person.name} {person.phone}
         </p>
       )

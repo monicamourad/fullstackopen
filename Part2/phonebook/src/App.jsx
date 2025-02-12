@@ -16,7 +16,7 @@ const App = () => {
       const persons = response.data.map(personData => ({ 
         name : personData.name,
         phone : personData.number,
-        key: personData.id
+        id: personData.id
       }));
       setPersons(persons);
     })
