@@ -1,7 +1,7 @@
 import { useState } from "react";
 import personsService from "../services/persons";
 
-const PersonForm = ({ persons, setPersons }) => {
+const PersonForm = ({ persons, setPersons, setNotification }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -27,6 +27,8 @@ const PersonForm = ({ persons, setPersons }) => {
           };
           const newPersons = persons.filter((person) => person.id !== data.id);
           setPersons(newPersons.concat(formattedPerson));
+          setNotification(`Updated ${formattedPerson.name}`);
+          setTimeout(() => setNotification(""), 5000);
         });
       }
     } else {
@@ -38,6 +40,8 @@ const PersonForm = ({ persons, setPersons }) => {
           id: data.id,
         };
         setPersons(persons.concat(formattedPerson));
+        setNotification(`Added ${formattedPerson.name}`);
+        setTimeout(() => setNotification(""), 5000);
       });
       setNewName("");
       setNewNumber("");
