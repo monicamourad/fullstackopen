@@ -79,6 +79,15 @@ button:focus-visible {
   border-radius: 2px;
   padding: 4px;
   margin-bottom: 8px;
-  
   color: green;
+}
+
+.success {
+  border: solid green;
+  color: green;
+}
+
+.failure {
+  border: solid red;
+  color: red;
 }

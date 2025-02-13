@@ -1,13 +1,21 @@
 import personsService from "../services/persons";
 
-const Persons = ({ persons, searchValue, setPersons, setNotification }) => {
-  const handleDelete = (person) => {
-    if (window.confirm(`Delete ${person.name}?`)) {
-      personsService.deletePerson(person).then((personBE) => {
+const Persons = ({ persons, searchValue, setPersons, setNotification, setIsFailure }) => {
+  const handleDelete = (personToDelete) => {
+    if (window.confirm(`Delete ${personToDelete.name}?`)) {
+      personsService.deletePerson(personToDelete).then((personBE) => {
         setPersons(persons.filter((person) => person.id !== personBE.id));
         setNotification(`Deleted ${personBE.name}`);
         setTimeout(() => setNotification(""), 5000);
-      });
+      }).catch((_error) => {
+        setNotification(`Information of ${personToDelete.name} has already been removed from the server`);
+        setIsFailure(true);
+        setPersons(persons.filter(person => person.id !== personToDelete.id));
+        setTimeout(() => {
+          setNotification("");
+          setIsFailure(false);
+        }, 5000);
+      });;
     }
   };
 

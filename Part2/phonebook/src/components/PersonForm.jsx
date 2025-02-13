@@ -1,7 +1,7 @@
 import { useState } from "react";
 import personsService from "../services/persons";
 
-const PersonForm = ({ persons, setPersons, setNotification }) => {
+const PersonForm = ({ persons, setPersons, setNotification, setIsFailure }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
 
@@ -29,6 +29,14 @@ const PersonForm = ({ persons, setPersons, setNotification }) => {
           setPersons(newPersons.concat(formattedPerson));
           setNotification(`Updated ${formattedPerson.name}`);
           setTimeout(() => setNotification(""), 5000);
+        }).catch((_error) => {
+          setNotification(`Information of ${newPerson.name} has already been removed from the server`);
+          setIsFailure(true);
+          setPersons(persons.filter(person => person.id !== newPerson.id));
+          setTimeout(() => {
+            setNotification("");
+            setIsFailure(false);
+          }, 5000);
         });
       }
     } else {
