@@ -10,6 +10,10 @@ const SearchForm = ({ setSearchResults }) => {
   }, []);
 
   useEffect(() => {
+    if (!searchText) {
+      setSearchResults([]);
+      return;
+    }
     const searchResults = countries.filter((country) =>
       country.name.common.toLowerCase().includes(searchText.toLowerCase())
     );
