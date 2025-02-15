@@ -3,7 +3,7 @@ import Country from "./Country";
 
 const SearchResults = ({ searchResults }) => {
   const [countryToShow, setCountryToShow] = useState(null);
-  useEffect(() => setCountryToShow(null), [searchResults]);
+  useEffect(() => setCountryToShow(null), [searchResults.length]);
 
   if (searchResults.length === 0) return;
 
